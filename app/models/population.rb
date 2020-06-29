@@ -1,23 +1,25 @@
 class Population < ApplicationRecord
 
   def self.min_year
-    Population.all.map(&:year).min.year
+    Population.minimum(:year).year
+  end
+
+  def self.max_year
+    Population.maximum(:year).year
   end
 
   def self.get(year)
     year = year.to_i
 
-    return 0 if year < min_year
-
-    pop = nil
-    until pop
-      pop = Population.find_by_year(Date.new(year))
-      year = year - 1
+    if year < min_year
+      0
+    elsif year > max_year
+      Population.find_by(year: Date.new(max_year))&.population
+    else
+      Population.where('year <= ?', Date.new(year))
+                .order(year: :desc)
+                .limit(1)
+                .first&.population
     end
-
-    return pop.population if pop
-
-    nil
   end
-
 end
