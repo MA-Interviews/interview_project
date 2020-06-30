@@ -27,5 +27,10 @@ RSpec.describe "Get population by year", type: :system do
     it "shows a population figure" do
       expect(page).to have_text(/Population: \d/)
     end
+
+    it "has another form for additional queries" do
+      assert_selector "input[name=year]"
+      assert_selector "button[type=submit]"
+    end
   end
 end
