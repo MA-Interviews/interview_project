@@ -1,4 +1,6 @@
 class Population < ApplicationRecord
+  GROWTH_RATE = 1.09.freeze
+  MAX_FUTURE_YEAR = 2500.freeze
 
   def self.min_year
     Population.minimum(:year).year
@@ -14,7 +16,7 @@ class Population < ApplicationRecord
     if year < min_year
       0
     elsif year > max_year
-      closest_past_population_for(year).population
+      estimated_future_population(year)
     else
       Population.find_by_year(Date.new(year))&.population || estimated_population(year)
     end
@@ -27,6 +29,12 @@ class Population < ApplicationRecord
     years_after_past_pop = year - past_pop.year.year
 
     past_pop.population + population_increase_per_year * years_after_past_pop
+  end
+
+  def self.estimated_future_population(year)
+    last_known_population = closest_past_population_for(year)
+    time = year - last_known_population.year.year
+    (last_known_population.population * GROWTH_RATE ** time).to_i
   end
 
   def self.closest_past_population_for(year)
