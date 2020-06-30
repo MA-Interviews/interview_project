@@ -7,8 +7,25 @@ RSpec.describe "Get population by year", type: :system do
     assert_selector "button[type=submit]"
   end
 
-  describe "When user enters a valid year" do
-    it "redirects to a results page"
-    it "shows a population figure"
+  context "When user enters a valid year" do
+    let(:valid_year) { 1900 }
+
+    subject do
+      visit populations_path
+      fill_in 'year', with: valid_year
+      click_button 'Submit'
+    end
+
+    before do
+      subject
+    end
+
+    it "redirects to a results page" do
+      expect(page).to have_current_path(populations_by_year_path(year: valid_year))
+    end
+
+    it "shows a population figure" do
+      expect(page).to have_text(/Population: \d/)
+    end
   end
 end
