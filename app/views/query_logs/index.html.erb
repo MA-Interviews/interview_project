@@ -5,6 +5,7 @@
     <tr>
       <th>Year</th>
       <th>Population</th>
+      <th>Type</th>
       <th>Query Time</th>
     </tr>
   </thead>
@@ -14,6 +15,7 @@
     <tr>
       <td><%= query_log.year %></td>
       <td><%= query_log.population %></td>
+      <td><%= query_log.query_type %></td>
       <td><%= query_log.created_at.strftime '%c' %></td>
     </tr>
   <% end %>
