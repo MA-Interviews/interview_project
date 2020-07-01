@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_015610) do
   end
 
   create_table "query_logs", force: :cascade do |t|
-    t.integer "year"
+    t.date "year"
     t.string "population"
     t.string "query_type"
     t.datetime "created_at", null: false

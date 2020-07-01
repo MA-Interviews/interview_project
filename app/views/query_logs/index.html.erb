@@ -13,10 +13,29 @@
   <tbody>
   <% @query_logs.each do |query_log| %>
     <tr>
-      <td><%= query_log.year %></td>
+      <td><%= query_log.year.year %></td>
       <td><%= query_log.population %></td>
       <td><%= query_log.query_type %></td>
       <td><%= query_log.created_at.strftime '%c' %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<h1>Query Counts</h1>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>Year</th>
+      <th>Count</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @query_counts.each do |year, count| %>
+    <tr>
+      <td><%= year.year %></td>
+      <td><%= count %></td>
     </tr>
   <% end %>
   </tbody>

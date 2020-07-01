@@ -24,7 +24,7 @@ class Population < ApplicationRecord
                            [estimated_population(year), QueryLog::CALCULATED_TYPE]
                          end
                        end
-    QueryLog.create(year: year, population: population, query_type: type)
+    QueryLog.create(year: Date.new(year), population: population, query_type: type)
     population
   end
 
