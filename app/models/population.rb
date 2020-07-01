@@ -12,14 +12,15 @@ class Population < ApplicationRecord
 
   def self.get(year)
     year = year.to_i
-
-    if year < min_year
-      0
-    elsif year > max_year
-      estimated_future_population(year)
-    else
-      Population.find_by_year(Date.new(year))&.population || estimated_population(year)
-    end
+    population = if year < min_year
+                   0
+                 elsif year > max_year
+                   estimated_future_population(year)
+                 else
+                   Population.find_by_year(Date.new(year))&.population || estimated_population(year)
+                 end
+    QueryLog.create(year: year, population: population)
+    population
   end
 
   def self.estimated_population(year)

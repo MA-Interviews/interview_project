@@ -1,0 +1,21 @@
+<h1>Query Logs</h1>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>Year</th>
+      <th>Population</th>
+      <th>Query Time</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @query_logs.each do |query_log| %>
+    <tr>
+      <td><%= query_log.year %></td>
+      <td><%= query_log.population %></td>
+      <td><%= query_log.created_at.strftime '%c' %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
