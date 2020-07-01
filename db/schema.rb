@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_015610) do
   create_table "query_logs", force: :cascade do |t|
     t.integer "year"
     t.string "population"
+    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
